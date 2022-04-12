@@ -16,12 +16,10 @@ import static io.restassured.RestAssured.given;
 public class FoodTest {
 
 //    String baseUrl = "https://api.spoonacular.com";                                            //добавляем url
-//    String token = "86ad362742694dbc8fd0bb0efb949
+//    String token = "86ad362742694dbc8fd0bb0efb949eb2";                                         // добавим токен для регистрации
 
-//    eb2";                                         // добавим токен для регистрации
-
-    @BeforeAll                                                                                   //протаскиваем логи и url во все тесты
-    static void beforeAll() {
+//    @BeforeAll                                                                                  //протаскиваем логи и url во все тесты
+//    static void beforeAll() {
 //        RestAssured.baseURI = "https://api.spoonacular.com";
 //       RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();                        //включается логирование когда валидация падает
 //       RestAssured.filters(new AllureRestAssured());                                            //добавляем спецификацию allure для развернутого отчета
@@ -51,7 +49,7 @@ public class FoodTest {
 //              .get(baseUrl + "/food/search?query="+ queryParameter +"&offset=0&number=10")     //так обычно никто не пишет потому что queryParameter может быть много
 //              .prettyPeek()                                                                    //логируем ответ get
                 .then();
-                .statusCode(200)                                                                 //проверка статус кода
+                 .statusCode(200)                                                                //проверка статус кода
                 .body("query", Matchers.equalTo(queryParameter));                                // проверка тела запроса (Matchers - сравнить)
 
 
