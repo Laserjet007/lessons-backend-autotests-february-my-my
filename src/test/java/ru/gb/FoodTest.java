@@ -27,7 +27,7 @@ public class FoodTest {
 //               .setContentType(ContentType.JSON)                                                //указываем нужные нам параметры
 //               .addQueryParam("apiKey", "86ad362742694dbc8fd0bb0efb949eb2" )
 //               .build();
-    }
+//    }
 
     @Test
     public void foodSearchTest()
