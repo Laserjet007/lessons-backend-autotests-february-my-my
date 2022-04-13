@@ -11,12 +11,12 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 // работа с RestAssured (типа Postman)
 
-//@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class})                                 //пишем наследование на junit5 для красивого отображения beforeAll. SpoonApiTesy - наследование спунакуляра сайта // на самом деле эта конфигурация не удобна - поскольку наследования может быт много и с ui  и с  allure...
-@SpoonApiTest                                                                                    //заменяем //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class}) для наследования от аннотации
+//@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class})                                  //пишем наследование на junit5 для красивого отображения beforeAll. SpoonApiTesy - наследование спунакуляра сайта // на самом деле эта конфигурация не удобна - поскольку наследования может быт много и с ui  и с  allure...
+@SpoonApiTest                                                                                     //заменяем //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class}) для наследования от аннотации
 public class FoodTest {
 
-//    String baseUrl = "https://api.spoonacular.com";                                            //добавляем url
-//    String token = "86ad362742694dbc8fd0bb0efb949eb2";                                         // добавим токен для регистрации
+//    String baseUrl = "https://api.spoonacular.com";                                             //добавляем url
+//    String token = "86ad362742694dbc8fd0bb0efb949eb2";                                          // добавим токен для регистрации
 
 //    @BeforeAll                                                                                  //протаскиваем логи и url во все тесты
 //    static void beforeAll() {
