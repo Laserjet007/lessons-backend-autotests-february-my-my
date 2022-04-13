@@ -49,7 +49,7 @@ public class UserTest {
                 .header(new Header("Authorization", "Bearer" + tokin))
                 .get("/user")                                                                 //метод получения юзера
                 .then()
-                .statusCode(201)                                                              //проверки
+                .statusCode(200)                                                              //проверки
                 .body("address", equalTo(address))                                            //вместо матчерса можно указать статический методequalTo
                 .body("email", equalTo(address))
                 .body("phone", equalTo(address))
