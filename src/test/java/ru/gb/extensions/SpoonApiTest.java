@@ -1,5 +1,5 @@
 package ru.gb.extensions;
-
+//в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
 import io.qameta.allure.junit5.AllureJunit5;
 import org.junit.jupiter.api.extension.ExtendWith;
 

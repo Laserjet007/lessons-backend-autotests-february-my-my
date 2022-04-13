@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import static ru.gb.config.SpoonConfig.spoonConfig;
-
+//в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
 //настройка Extension
 
 public class SpoonApiTestExtension implements BeforeAllCallback {

@@ -6,7 +6,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-
+//в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
 import static ru.gb.config.MobileShopConfig.mobileShopConfig;
 
 public class MobileShopApiTestExtension implements BeforeAllCallback {

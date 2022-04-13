@@ -1,12 +1,12 @@
 package ru.gb;
+//в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
 
-import io.qameta.allure.junit5.AllureJunit5;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import ru.gb.extensions.SpoonApiTest;
-import ru.gb.extensions.SpoonApiTestExtension;
+
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 // работа с RestAssured (типа Postman)
@@ -29,18 +29,22 @@ public class FoodTest {
 //               .build();
 //    }
 
-    @Test
-    public void foodSearchTest()
-    {
-        String queryParameter = "Pizza";
+    @ParameterizedTest                                                                           //параметризуем тест (подходит больше для айпишных тестов. потому что их нужно проверить с различными параметрами, а по пирамиде тестирования их должно быть больше (и благодаря что они более стабильнее мы можем проверить больше функционала проверить без риска хрупкости тестов)
+    @ValueSource(strings = {"pizza", "Sushi"})
+    public void foodSearchTest(String queryParameter) {                                          //входной параметр - String queryParameter
+//        String queryParameter = "Pizza";
         given()                                                                                  //в rest-assured все тесты начинаются с given() - какие - либо данные, условия
+                .queryParams(Map.of("query", queryParameter,
+                        "offset", 0,
+                        "number", 10))
+
 //              .when()                                                                          //писать не обязательно
 //              .log()                                                                           //просмотр логов
 //              .all()                                                                           //логируем все
 //              .queryParam("apiKey", token )
-                .queryParam("query", queryParameter )
-                .queryParam("offset", 0 )
-                .queryParam("number", 10 )
+//              .queryParam("query", queryParameter )
+//              .queryParam("offset", 0 )
+//              .queryParam("number", 10 )
 //              .queryParams (Map.of("query", queryParameter,                                    //вариант перечисления параметров
 //                      "offset", 0
 //                      "number", 10
@@ -48,9 +52,9 @@ public class FoodTest {
                 .get("/food/search")
 //              .get(baseUrl + "/food/search?query="+ queryParameter +"&offset=0&number=10")     //так обычно никто не пишет потому что queryParameter может быть много
 //              .prettyPeek()                                                                    //логируем ответ get
-                .then();
-                 .statusCode(200)                                                                //проверка статус кода
-                .body("query", Matchers.equalTo(queryParameter));                                // проверка тела запроса (Matchers - сравнить)
+                .then()
+                .statusCode(200)                                                              //проверка статус кода
+                .body("query", Matchers.equalTo(queryParameter));                             // проверка тела запроса (Matchers - сравнить)
 
 
 
