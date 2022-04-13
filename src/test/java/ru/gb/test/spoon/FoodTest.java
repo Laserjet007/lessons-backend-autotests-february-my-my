@@ -1,4 +1,4 @@
-package ru.gb;
+package ru.gb.test.spoon;
 //в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
 
 import org.hamcrest.Matchers;
