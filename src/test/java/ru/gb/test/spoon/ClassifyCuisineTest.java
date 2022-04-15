@@ -1,6 +1,5 @@
 package ru.gb.test.spoon;
 
-import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -12,7 +11,7 @@ import static io.restassured.RestAssured.given;
 
 @SpoonApiTest
 public class ClassifyCuisineTest {
-    private static RequestSpecification requestSpecification;
+
 
 
 

@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class})                                  //пишем наследование на junit5 для красивого отображения beforeAll. SpoonApiTesy - наследование спунакуляра сайта // на самом деле эта конфигурация не удобна - поскольку наследования может быт много и с ui  и с  allure...
 @SpoonApiTest                                                                                     //заменяем //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class}) для наследования от аннотации
 public class FoodTest {
-
+    private static
 //    String baseUrl = "https://api.spoonacular.com";                                             //добавляем url
 //    String token = "86ad362742694dbc8fd0bb0efb949eb2";                                          // добавим токен для регистрации
 
@@ -27,7 +27,7 @@ public class FoodTest {
 //               .build();
 //    }
 
-    @ParameterizedTest                                                                           //параметризуем тест (подходит больше для  тестов. потому что их нужно проверить с различными параметрами, а по пирамиде тестирования их должно быть больше (и благодаря что они более стабильнее мы можем проверить больше функционала проверить без риска хрупкости тестов)
+    @ParameterizedTest                                                                           //параметризуем тест (подходит больше для api тестов. потому что их нужно проверить с различными параметрами, а по пирамиде тестирования их должно быть больше (и благодаря что они более стабильнее мы можем проверить больше функционала проверить без риска хрупкости тестов)
     @ValueSource(strings = {"pizza", "Sushi"})
     public void foodSearchRecipesContainsQueryTest(String queryParameter) {                                          //входной параметр - String queryParameter
 //        String queryParameter = "Pizza";
