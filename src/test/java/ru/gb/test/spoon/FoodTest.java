@@ -1,6 +1,7 @@
 package ru.gb.test.spoon;
 //в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
 //тест на поиск определенных продуктов по кучке
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.gb.extensions.SpoonApiTest;
-import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 // работа с RestAssured (отталкиваясь от Postman)
 
@@ -44,9 +45,11 @@ public class FoodTest {
     public void foodSearchRecipesContainsQueryTest(String queryParameter) {                                          //входной параметр - String queryParameter
 //        String queryParameter = "Pizza";
         given()                                                                                  //в rest-assured все тесты начинаются с given() - какие - либо данные, условия
-                .queryParams(Map.of("query", queryParameter,
-                        "offset", 0,
-                        "number", 10))
+                .queryParam("query", queryParameter)
+                .spec(requestSpecification)
+//                .queryParams(Map.of("query", queryParameter,
+//                        "offset", 0,
+//                        "number", 10))
 
 //              .when()                                                                          //писать не обязательно
 //              .log()                                                                           //просмотр логов

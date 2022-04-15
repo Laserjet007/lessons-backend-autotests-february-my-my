@@ -8,8 +8,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.gb.extensions.SpoonApiTest;
 
-import java.util.Map;
-
 import static io.restassured.RestAssured.given;
 
 @SpoonApiTest
@@ -29,8 +27,8 @@ public class IngredientsWidgetTest {
     public void IngredientsWidget_Test(String queryParameter) {
 //        String queryParameter = "en";
         given()
-                .when()
-                .queryParams(Map.of("apiKey", "token"))
+                .queryParam("query", queryParameter)
+                .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
                 .post("/recipes/visualizeIngredients")
                 .prettyPeek()
                 .then()

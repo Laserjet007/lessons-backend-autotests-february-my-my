@@ -8,8 +8,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.gb.extensions.SpoonApiTest;
 
-import java.util.Map;
-
 import static io.restassured.RestAssured.given;
 
 @SpoonApiTest
@@ -27,14 +25,13 @@ public class ClassifyCuisineTest {
 
 
 
-    @ParameterizedTest//параметризуем тест (подходит больше для  тестов. потому что их нужно проверить с различными параметрами, а по пирамиде тестирования их должно быть больше (и благодаря что они более стабильнее мы можем проверить больше функционала проверить без риска хрупкости тестов)
+    @ParameterizedTest                                                                         //параметризуем тест (подходит больше для  тестов. потому что их нужно проверить с различными параметрами, а по пирамиде тестирования их должно быть больше (и благодаря что они более стабильнее мы можем проверить больше функционала проверить без риска хрупкости тестов)
     @ValueSource(strings = {"pizza", "Sushi"})
     public void ClassifyCuisine_Test(String queryParameter) {
 //        String queryParameter = "Mediterranean";
         given()
-                .when()
-                .queryParams(Map.of("apiKey", "token"
-                        ))
+                .queryParam("query", queryParameter)
+                .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
                 .post("/recipes/cuisine")
                 .prettyPeek()
                 .then()

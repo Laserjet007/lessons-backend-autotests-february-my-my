@@ -9,8 +9,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.gb.extensions.SpoonApiTest;
 
-import java.util.Map;
-
 import static io.restassured.RestAssured.given;
 
 @SpoonApiTest
@@ -30,14 +28,8 @@ public class SearchRecipesTest {
         public void SearchRecipes_Test(String queryParameter) {
 //            String queryParameter = "carrots,tomatoes";
             given()
-            .when()
-                   .queryParams(Map.of("apiKey", "token",
-                           "ingredients", queryParameter,
-                           "number", "10",
-                           "limitLicense", "true",
-                           "ranking", "1",
-                           "ignorePantry", "false"
-                           ))
+                   .queryParam("query", queryParameter)
+                    .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
                     .get("/recipes/complexSearch")
                     .prettyPeek()
                     .then()
