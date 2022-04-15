@@ -5,9 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.gb.extensions.SpoonApiTest;
-
 import java.util.Map;
-
 import static io.restassured.RestAssured.given;
 // работа с RestAssured (типа Postman)
 

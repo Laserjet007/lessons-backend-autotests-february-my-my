@@ -1,7 +1,5 @@
 package ru.gb.test.spoon;
-
 //в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
-
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import ru.gb.extensions.SpoonApiTest;

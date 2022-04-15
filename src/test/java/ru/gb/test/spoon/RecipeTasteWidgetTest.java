@@ -23,5 +23,4 @@ public class RecipeTasteWidgetTest {
                 .statusCode(200)
                 .body("rgb", Matchers.equalTo(queryParameter));
     }
-
 }

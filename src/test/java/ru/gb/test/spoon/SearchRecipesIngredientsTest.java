@@ -21,7 +21,7 @@ public class SearchRecipesIngredientsTest {
                         "ignorePantry", "false"
                 ))
 
-//                    .get(baseUrl + "/recipes/findByIngredients/ingredients")
+//                     .get(baseUrl + "/recipes/findByIngredients/ingredients")
                 .then()
                 .statusCode(200)
                 .body("carrots,tomatoes", Matchers.equalTo(queryParameter));

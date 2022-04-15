@@ -20,7 +20,7 @@ public class SearchRecipesByNutrientsTest {
                         "minCalories", "50"
                 ))
 
-//                    .get(baseUrl + "/recipes/findByIngredients/ingredients")
+//                     .get(baseUrl + "/recipes/findByIngredients/ingredients")
         .then()
         .statusCode(200)
         .body("minCarbs", Matchers.equalTo(queryParameter));
