@@ -17,8 +17,7 @@ public class GetRecipeInformationBulkTest {
                         "ids", queryParameter,
                         "includeNutrition", "false"
                 ))
-
-//                    .get(baseUrl + "/recipes/findByIngredients/ingredients")
+                .get("/recipes/cuisine")
                 .then()
                 .statusCode(200)
                 .body("715538,716429", Matchers.equalTo(queryParameter));

@@ -16,6 +16,7 @@ public class PriceBreakdownWidgetTest {
                 .queryParams(Map.of("apiKey", "token",
                         "language", queryParameter
                 ))
+                .post("/recipes/visualizePriceEstimator")
                 .then()
                 .statusCode(200)
                 .body("en", Matchers.equalTo(queryParameter));

@@ -12,17 +12,16 @@ public class SearchRecipesByNutrientsTest {
     public void SearchRecipesByNutrients() {
         String queryParameter = "10";
         given()
-        .when()
-        .queryParams(Map.of("apiKey", "token",
+                .when()
+                .queryParams(Map.of("apiKey", "token",
                         "maxCalories", queryParameter,
                         "maxCarbs", "10",
                         "maxProtein", "10",
                         "minCalories", "50"
                 ))
-
-//                     .get(baseUrl + "/recipes/findByIngredients/ingredients")
-        .then()
-        .statusCode(200)
-        .body("minCarbs", Matchers.equalTo(queryParameter));
+                .get("/recipes/findByNutrients")
+                .then()
+                .statusCode(200)
+                .body("minCarbs", Matchers.equalTo(queryParameter));
     }
 }

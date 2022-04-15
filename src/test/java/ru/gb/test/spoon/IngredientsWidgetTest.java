@@ -16,7 +16,7 @@ public class IngredientsWidgetTest {
                 .when()
                 .queryParams(Map.of("apiKey", "token"
                 ))
-
+                .post("/recipes/visualizeIngredients")
                 .then()
                 .statusCode(200)
                 .body("language", Matchers.equalTo(queryParameter));

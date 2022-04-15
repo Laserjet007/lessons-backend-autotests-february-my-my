@@ -20,6 +20,7 @@ public class SearchRecipesTest {
                            "ranking", "1",
                            "ignorePantry", "false"
                            ))
+                    .get("/recipes/complexSearch")
                     .then()
                     .statusCode(200)
                     .body("ingredients", Matchers.equalTo(queryParameter));

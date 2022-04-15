@@ -15,6 +15,7 @@ public class ClassifyCuisineTest {
                 .when()
                 .queryParams(Map.of("apiKey", "token"
                 ))
+                .post("/recipes/cuisine")
                 .then()
                 .statusCode(200)
                 .body("Mediterranean", Matchers.equalTo(queryParameter));

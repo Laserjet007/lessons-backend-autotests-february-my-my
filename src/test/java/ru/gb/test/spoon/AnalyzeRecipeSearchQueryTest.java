@@ -16,6 +16,7 @@ public class AnalyzeRecipeSearchQueryTest {
                 .queryParams(Map.of("apiKey", "token",
                         "q", queryParameter
                 ))
+                .get("/recipes/queries/analyze")
                 .then()
                 .statusCode(200)
                 .body("q", Matchers.equalTo(queryParameter));

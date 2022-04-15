@@ -19,6 +19,7 @@ public class RecipeTasteWidgetTest {
                         "minCalories", "50",
                         "rgb", queryParameter
                 ))
+                .post("/recipes/visualizeTaste")
                 .then()
                 .statusCode(200)
                 .body("rgb", Matchers.equalTo(queryParameter));

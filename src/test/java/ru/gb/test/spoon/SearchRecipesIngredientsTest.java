@@ -20,8 +20,7 @@ public class SearchRecipesIngredientsTest {
                         "ranking", "1",
                         "ignorePantry", "false"
                 ))
-
-//                     .get(baseUrl + "/recipes/findByIngredients/ingredients")
+                .get("/recipes/findByIngredients")
                 .then()
                 .statusCode(200)
                 .body("carrots,tomatoes", Matchers.equalTo(queryParameter));

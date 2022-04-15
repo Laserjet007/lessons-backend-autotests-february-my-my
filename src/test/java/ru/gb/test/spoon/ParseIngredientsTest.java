@@ -16,6 +16,7 @@ public class ParseIngredientsTest {
                 .queryParams(Map.of("apiKey", "token",
                         "language", queryParameter
                 ))
+                .post("/recipes/parseIngredients")
                 .then()
                 .statusCode(200)
                 .body("en", Matchers.equalTo(queryParameter));
