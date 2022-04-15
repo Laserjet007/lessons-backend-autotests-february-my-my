@@ -1,7 +1,10 @@
 package ru.gb.test.spoon;
 //в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
 //тест на поиск определенных продуктов по кучке
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.gb.extensions.SpoonApiTest;
@@ -12,8 +15,17 @@ import static io.restassured.RestAssured.given;
 //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class})                                  //пишем наследование на junit5 для красивого отображения beforeAll. SpoonApiTesy - наследование спунакуляра сайта // на самом деле эта конфигурация не удобна - поскольку наследования может быт много и с ui  и с  allure...
 @SpoonApiTest                                                                                     //заменяем //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class}) для наследования от аннотации
 public class FoodTest {
-    private static
-//    String baseUrl = "https://api.spoonacular.com";                                             //добавляем url
+    private static RequestSpecification requestSpecification;
+
+    @BeforeAll
+    static void beforeAll() {
+        requestSpecification = new RequestSpecBuilder()
+                .addQueryParam("offset", 0)
+                .addQueryParam("number", 10)
+                .build();
+    }
+
+    //    String baseUrl = "https://api.spoonacular.com";                                             //добавляем url
 //    String token = "86ad362742694dbc8fd0bb0efb949eb2";                                          // добавим токен для регистрации
 
 //    @BeforeAll                                                                                  //протаскиваем логи и url во все тесты
