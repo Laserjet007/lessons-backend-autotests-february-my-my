@@ -7,10 +7,10 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+//тут находятся аннотации (@) которые включают в себя некоторые extensions
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith({AllureJunit5.class, MobileShopApiTestExtension.class})
+@ExtendWith({AllureJunit5.class, MobileShopApiTestExtension.class, CommonApiTestExtension.class})   //CommonApiTestExtension - ставим по дефолту отнаследиться для аутинфикациина сайте (тут находятся аннотации (@) которые включают в себя некоторые extensions)
 public @interface MobileShopApiTest {
 
 }

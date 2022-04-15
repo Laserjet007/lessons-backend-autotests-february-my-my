@@ -1,6 +1,5 @@
 package ru.gb.extensions;
 
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -13,13 +12,14 @@ import static ru.gb.config.SpoonConfig.spoonConfig;
 
 public class SpoonApiTestExtension implements BeforeAllCallback {
     @Override
-    public void beforeAll(ExtensionContext context) throws Exception {
+    public void beforeAll(ExtensionContext extensionContext) throws Exception {
         RestAssured.baseURI = spoonConfig.baseURI();                                             //прокидываем наследование
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();                        //включается логирование когда валидация падает
-        RestAssured.filters(new AllureRestAssured());                                            //добавляем спецификацию allure для развернутого отчета
+//убираем часть кода для получения его подефолту от CommonApiTestExtension
+//      RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();                        //включается логирование когда валидация падает
+//      RestAssured.filters(new AllureRestAssured());                                            //добавляем спецификацию allure для развернутого отчета
         RestAssured.requestSpecification = new RequestSpecBuilder()                              //авторизация на каждый тест
                 .setContentType(ContentType.JSON)                                                //указываем нужные нам параметры
-                .addQueryParam("apiKey", spoonConfig.apiKey() )                     //сюда прокидываем из спунконфига апикей
+                .addQueryParam("apiKey", spoonConfig.apiKey() )                     //сюда прокидываем из спунконфига апи кей для авторизации (что бы на каждом тесте не прописывать каждый раз авторизацию)
                 .build();
     }
 }

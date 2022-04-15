@@ -2,11 +2,11 @@ package ru.gb.test.spoon;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-
+import ru.gb.extensions.SpoonApiTest;
 import java.util.Map;
-
 import static io.restassured.RestAssured.given;
 
+@SpoonApiTest
 public class GetRecipeInformationBulkTest {
     @Test
     public void GetRecipeInformationBulk() {

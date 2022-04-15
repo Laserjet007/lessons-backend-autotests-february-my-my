@@ -1,6 +1,6 @@
 package ru.gb.test.spoon;
 //в rest-assured есть достойная документация по проверкам : github/rest-assured/rest-assured/wiki/Usage
-
+//тест на поиск определенных продуктов по кучке
 import org.hamcrest.Matchers;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -55,9 +55,7 @@ public class FoodTest {
                 .then()
                 .statusCode(200)                                                              //проверка статус кода
                 .body("query", Matchers.equalTo(queryParameter));                             // проверка тела запроса (Matchers - сравнить)
-
-
-
+//              .body("query", Matchers.case(queryParameter));                                   // проверка тела запроса (case - игнорирование большой буквы)
     }
 
 }

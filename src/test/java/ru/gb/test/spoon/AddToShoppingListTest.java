@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ru.gb.extensions.SpoonApiTest;
-
+//тест на добавление юзеру определенного шопинг листа
 import static io.restassured.RestAssured.given;
 //подготовка данных для теста
 @SpoonApiTest                                                                             //ставим аннотацию на проброс данных пользователя и url
