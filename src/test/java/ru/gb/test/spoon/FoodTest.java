@@ -3,7 +3,9 @@ package ru.gb.test.spoon;
 //тест на поиск определенных продуктов по кучке
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +19,7 @@ import static io.restassured.RestAssured.given;
 @SpoonApiTest                                                                                     //заменяем //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class}) для наследования от аннотации
 public class FoodTest {
     private static RequestSpecification requestSpecification;
+    private static ResponseSpecification responseSpecification;
 
     @BeforeAll
     static void beforeAll() {
@@ -24,9 +27,13 @@ public class FoodTest {
                 .addQueryParam("offset", 0)
                 .addQueryParam("number", 10)
                 .build();
+        responseSpecification = new ResponseSpecBuilder()
+                .expectBody("limit", Matchers.equalTo(10))
+                .expectBody("offset", Matchers.equalTo(0))
+                .build();
     }
 
-    //    String baseUrl = "https://api.spoonacular.com";                                             //добавляем url
+//    String baseUrl = "https://api.spoonacular.com";                                             //добавляем url
 //    String token = "86ad362742694dbc8fd0bb0efb949eb2";                                          // добавим токен для регистрации
 
 //    @BeforeAll                                                                                  //протаскиваем логи и url во все тесты
@@ -66,6 +73,7 @@ public class FoodTest {
 //              .get(baseUrl + "/food/search?query="+ queryParameter +"&offset=0&number=10")     //так обычно никто не пишет потому что queryParameter может быть много
                 .prettyPeek()                                                                    ////временно поставим логирование для просмотра, response что бы в дальнейшем с этим работать (находить в ответе нужный элемент для сравнения)
                 .then()
+                .spec(responseSpecification)
                 .statusCode(200)                                                              //проверка статус кода
 //                .body("query", Matchers.equalTo(queryParameter))                              // проверка тела запроса (Matchers - сравнить)
                 .body("query", Matchers.containsStringIgnoringCase(queryParameter))           // проверка тела запроса (containsStringIgnoringCase - игнорирование большой буквы)

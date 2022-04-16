@@ -2,6 +2,7 @@ package ru.gb.test.spoon;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,6 +14,7 @@ import static io.restassured.RestAssured.given;
 @SpoonApiTest
 public class GetRecipeInformationBulkTest {
     private static RequestSpecification requestSpecification;
+    private static ResponseSpecification responseSpecification;
 
     @BeforeAll
     static void beforeAll() {
@@ -22,7 +24,7 @@ public class GetRecipeInformationBulkTest {
                 .build();
     }
 
-    @ParameterizedTest//параметризуем тест (подходит больше для api тестов. потому что их нужно проверить с различными параметрами, а по пирамиде тестирования их должно быть больше (и благодаря что они более стабильнее мы можем проверить больше функционала проверить без риска хрупкости тестов)
+    @ParameterizedTest
     @ValueSource(strings = {"Pink When"})
     public void GetRecipeInformationBulk_Test(String queryParameter) {
         given()
@@ -32,8 +34,6 @@ public class GetRecipeInformationBulkTest {
                 .prettyPeek()
                 .then()
                 .statusCode(200)
-//                .body("title", Matchers.equalTo(queryParameter))// проверка тела запроса (Matchers - сравнить)
-//                .body("query", Matchers.containsStringIgnoringCase(queryParameter))          // проверка тела запроса (containsStringIgnoringCase - игнорирование большой буквы)
                 .body("searchResults.results.sourceName", Matchers.everyItem(Matchers.containsStringIgnoringCase(queryParameter))); //проверяем что в ответе (после флага prettyPeek) идет name - Recipes. [0] - ищем первый результат Arrey содержит во всех ответах queryParameter"pizza" (Matchers.everyItem(Matchers.containsString(queryParameter))
 
     }
