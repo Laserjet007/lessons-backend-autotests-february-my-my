@@ -17,15 +17,17 @@ public class SearchRecipesIngredientsTest {
     @BeforeAll
     static void beforeAll() {
         requestSpecification = new RequestSpecBuilder()
-                .addQueryParam("offset", 0)
+                .addQueryParam("ingredients", "carrots,tomatoes")
                 .addQueryParam("number", 10)
+                .addQueryParam("limitLicense", true)
+                .addQueryParam("ranking", 1)
+                .addQueryParam("ignorePantry", false)
                 .build();
     }
 
     @ParameterizedTest//параметризуем тест (подходит больше для  тестов. потому что их нужно проверить с различными параметрами, а по пирамиде тестирования их должно быть больше (и благодаря что они более стабильнее мы можем проверить больше функционала проверить без риска хрупкости тестов)
-    @ValueSource(strings = {"pizza", "Sushi"})
+    @ValueSource(strings = {"Farfalle With Broccoli, Carrots and Tomatoes"})
     public void SearchRecipesIngredients_Test(String queryParameter) {
-//        String queryParameter = "carrots,tomatoes";
         given()
                 .queryParam("query", queryParameter)
                 .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
@@ -34,8 +36,8 @@ public class SearchRecipesIngredientsTest {
                 .then()
                 .statusCode(200)
 //                .body("carrots,tomatoes", Matchers.equalTo(queryParameter));
-                .body("query", Matchers.containsStringIgnoringCase(queryParameter))           // проверка тела запроса (containsStringIgnoringCase - игнорирование большой буквы)
-                .body("searchResults.results[0].name", Matchers.everyItem(Matchers.containsStringIgnoringCase(queryParameter))); //проверяем что в ответе (после флага prettyPeek) идет name - Recipes. [0] - ищем первый результат Arrey содержит во всех ответах queryParameter"pizza" (Matchers.everyItem(Matchers.containsString(queryParameter))
+//                .body("query", Matchers.containsStringIgnoringCase(queryParameter))           // проверка тела запроса (containsStringIgnoringCase - игнорирование большой буквы)
+                .body("searchResults.results.title", Matchers.everyItem(Matchers.containsStringIgnoringCase(queryParameter))); //проверяем что в ответе (после флага prettyPeek) идет name - Recipes. [0] - ищем первый результат Arrey содержит во всех ответах queryParameter"pizza" (Matchers.everyItem(Matchers.containsString(queryParameter))
 
     }
 }

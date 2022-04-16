@@ -17,15 +17,15 @@ public class RecipeTasteWidgetTest {
     @BeforeAll
     static void beforeAll() {
         requestSpecification = new RequestSpecBuilder()
-                .addQueryParam("offset", 0)
-                .addQueryParam("number", 10)
+                .addQueryParam("language", "en")
+                .addQueryParam("normalize", "false")
+                .addQueryParam("rgb", "75,192,192")
                 .build();
     }
 
     @ParameterizedTest//параметризуем тест (подходит больше для  тестов. потому что их нужно проверить с различными параметрами, а по пирамиде тестирования их должно быть больше (и благодаря что они более стабильнее мы можем проверить больше функционала проверить без риска хрупкости тестов)
     @ValueSource(strings = {"pizza", "Sushi"})
     public void RecipeTasteWidget_Test(String queryParameter) {
-//        String queryParameter = "75,192,192";
         given()
                 .queryParam("query", queryParameter)
                 .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров

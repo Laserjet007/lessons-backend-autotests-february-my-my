@@ -17,8 +17,8 @@ public class PriceBreakdownWidgetTest {
     @BeforeAll
     static void beforeAll() {
         requestSpecification = new RequestSpecBuilder()
-                .addQueryParam("offset", 0)
-                .addQueryParam("number", 10)
+                .addQueryParam("language", "en")
+//                .addQueryParam("number", 10)
                 .build();
     }
 
