@@ -8,36 +8,46 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import ru.gb.dto.spoon.CreateUserRequest;
 import ru.gb.extensions.SpoonApiTest;
 //тест на добавление юзеру определенного шопинг листа
 import static io.restassured.RestAssured.given;
 //подготовка данных для теста
-@SpoonApiTest                                                                             //ставим аннотацию на проброс данных пользователя и url
+@SpoonApiTest                                                                           //ставим аннотацию на проброс данных пользователя и url
 public class AddToShoppingListTest {
-    private static String userName;                                                       //делаем статического юзера, что бы использовать в тестах
+    private static String userName;                                                     //делаем статического юзера, что бы использовать в тестах
     private static String hash;
-    private int id;                                                                       //получаем id нестатический, тк для каждого теста должна быть своя переменная
+    private int id;                                                                     //получаем id нестатический, тк для каждого теста должна быть своя переменная
 
     @BeforeAll
     static void beforeAll() {
-        Faker faker = new Faker();                                                        //генератор фейковых данных из библиотечки репозитория для создания нового юзера (для использования в дальнейших тестах)
-        System.out.println(faker.chuckNorris().fact());
+        Faker faker = new Faker();                                                      //генератор фейковых данных из библиотечки репозитория для создания нового юзера (для использования в дальнейших тестах)
+//      System.out.println(faker.chuckNorris().fact());
         JsonPath jsonPath = given()
-                //todo на 4-ом занятии заменим с помощью сериализации
-                .body("{\n" +                                                          //подставляем тело запроса
-                        "    \"username\": \"" + faker.funnyName() + "\", \n" +           //" + + " - генерация данных //рандомизация полного имени
-                        "    \"firstName\": \"" + faker.name().firstName() + "\",\n" +
-                        "    \"lastName\": \"" + faker.name().lastName() + "\",\n" +
-                        "    \"email\": \"" + faker.internet().emailAddress()+ "\"\n" +
-                        "}")
-                .post("/users/connect")                                                //ожидаем создание юзера
+//                .log()                                                                // в случае необходимости логирования для обнаружения проблем
+//                .all()
+//для сериализации теста AddToShoppingListTest используется объект определенного класса (с определенными полями getter setter конструктор и т.д.)
+//в процессе сериализации происходит закладка любого объекта любого класса (когда мы вставляем объект любого класса то он будет автоматически сериализоваться (превращение объекта в определенный формат файла (в нашем случае в json))
+                .body(CreateUserRequest.builder()                                       //создаем запрос юзера
+                                .username(faker.funnyName().name())                     //добавляем библиотечки jackson-databind, jackson-core, jackson-annotations в <dependency> для распознавания java этого кода
+                                .firstName(faker.name().firstName())                    //добавляем данные из конструкции ниже
+                                .lastName(faker.name().lastName())
+                                .email(faker.internet().emailAddress())
+                                .build())
+//                        "{\n" +                                                        //подставляем тело запроса (используем строку (для сериализации используется объект определенного класса(с определенными полями getter setter конструктор и т.д.))
+//                        "    \"username\": \"" + faker.funnyName() + "\", \n" +        //" + + " - генерация данных //рандомизация полного имени
+//                        "    \"firstName\": \"" + faker.name().firstName() + "\",\n" +
+//                        "    \"lastName\": \"" + faker.name().lastName() + "\",\n" +
+//                        "    \"email\": \"" + faker.internet().emailAddress()+ "\"\n" +
+//                        "}")
+                .post("/users/connect")                                               //ожидаем создание юзера
                 .then()
-                .statusCode(200)                                                        //201 необязательно (можно просто 200)
-                .extract()                                                                //забрать полученные данные
-                .body()                                                                   //берем тело
-                .jsonPath();                                                              //взять нужные данные из переменной jsonPath:
-        userName = jsonPath.getString("username");                                   //userName
-        hash = jsonPath.getString("hash");                                           //hash
+                .statusCode(200)                                                       //201 необязательно (можно просто 200)
+                .extract()                                                               //забрать полученные данные (логирование)
+                .body()                                                                  //берем тело
+                .jsonPath();                                                             //взять нужные данные из переменной jsonPath:
+        userName = jsonPath.getString("username");                                  //userName
+        hash = jsonPath.getString("hash");                                          //hash
     }
 //проверка, что нет ни каких данных в корзине (если она не пустая то изначально невозможно узнать какие условия)
     @BeforeEach

@@ -15,11 +15,11 @@ import ru.gb.extensions.SpoonApiTest;
 import static io.restassured.RestAssured.given;
 // работа с RestAssured (отталкиваясь от Postman)
 
-//@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class})                                  //пишем наследование на junit5 для красивого отображения beforeAll. SpoonApiTesy - наследование спунакуляра сайта // на самом деле эта конфигурация не удобна - поскольку наследования может быт много и с ui  и с  allure...
-@SpoonApiTest                                                                                     //заменяем //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class}) для наследования от аннотации
+//@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class})                                 //пишем наследование на junit5 для красивого отображения beforeAll. SpoonApiTesy - наследование спунакуляра сайта // на самом деле эта конфигурация не удобна - поскольку наследования может быт много и с ui  и с  allure...
+@SpoonApiTest                                                                                    //заменяем //@ExtendWith({AllureJunit5.class, SpoonApiTestExtension.class}) для наследования от аннотации
 public class FoodTest {
     private static RequestSpecification requestSpecification;
-    private static ResponseSpecification responseSpecification;
+    private static ResponseSpecification responseSpecification;                                  // проверка ответа
 
     @BeforeAll
     static void beforeAll() {
@@ -28,7 +28,7 @@ public class FoodTest {
                 .addQueryParam("number", 10)
                 .build();
         responseSpecification = new ResponseSpecBuilder()
-                .expectBody("limit", Matchers.equalTo(10))
+                .expectBody("limit", Matchers.equalTo(10))                          // проверка ответа
                 .expectBody("offset", Matchers.equalTo(0))
                 .build();
     }
@@ -71,11 +71,11 @@ public class FoodTest {
 //              ))
                 .get("/food/search")
 //              .get(baseUrl + "/food/search?query="+ queryParameter +"&offset=0&number=10")     //так обычно никто не пишет потому что queryParameter может быть много
-                .prettyPeek()                                                                    ////временно поставим логирование для просмотра, response что бы в дальнейшем с этим работать (находить в ответе нужный элемент для сравнения)
+                .prettyPeek()                                                                    //временно поставим логирование для просмотра, response что бы в дальнейшем с этим работать (находить в ответе нужный элемент для сравнения)
                 .then()
-                .spec(responseSpecification)
+                .spec(responseSpecification)                                                     // проверка ответа
                 .statusCode(200)                                                              //проверка статус кода
-//                .body("query", Matchers.equalTo(queryParameter))                              // проверка тела запроса (Matchers - сравнить)
+//                .body("query", Matchers.equalTo(queryParameter))                               // проверка тела запроса (Matchers - сравнить)
                 .body("query", Matchers.containsStringIgnoringCase(queryParameter))           // проверка тела запроса (containsStringIgnoringCase - игнорирование большой буквы)
                 .body("searchResults.results[0].name", Matchers.everyItem(Matchers.containsStringIgnoringCase(queryParameter))); //проверяем что в ответе (после флага prettyPeek) идет name - Recipes. [0] - ищем первый результат Arrey содержит во всех ответах queryParameter"pizza" (Matchers.everyItem(Matchers.containsString(queryParameter))
 

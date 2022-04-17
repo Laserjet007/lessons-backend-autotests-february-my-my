@@ -22,5 +22,8 @@ public class SpoonApiTestExtension implements BeforeAllCallback {
 //              .log(LogDetail.ALL)                                                              //временно поставим логирование для просмотра, response что бы в дальнейшем с этим работать
                 .addQueryParam("apiKey", spoonConfig.apiKey() )                     //сюда прокидываем из спунконфига апи кей для авторизации (что бы на каждом тесте не прописывать каждый раз авторизацию)
                 .build();
+//        RestAssured.responseSpecification = new ResponseSpecBuilder()
+//                .expectStatusCode(200)                                           //можем проверить, что все ответы идут с кодом 200 в случае если они 200
+//                .build();
     }
 }
