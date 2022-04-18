@@ -39,7 +39,8 @@ public class SearchRecipesByNutrientsTest {
 //                .prettyPeek()
                 .then()
                 .statusCode(200)
-                .body("searchResults.results.title", Matchers.everyItem(Matchers.containsStringIgnoringCase(queryParameter))); //проверяем что в ответе (после флага prettyPeek) идет name - Recipes. [0] - ищем первый результат Arrey содержит во всех ответах queryParameter"pizza" (Matchers.everyItem(Matchers.containsString(queryParameter))
+                .body("searchResults.results.title", Matchers.everyItem(Matchers
+                        .containsStringIgnoringCase(queryParameter)));                         //проверяем что в ответе (после флага prettyPeek) идет name - Recipes. [0] - ищем первый результат Arrey содержит во всех ответах queryParameter"pizza" (Matchers.everyItem(Matchers.containsString(queryParameter))
 
     }
 }

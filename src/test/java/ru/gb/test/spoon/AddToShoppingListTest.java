@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import ru.gb.dto.spoon.AddItemToShoppingListRequest;
 import ru.gb.dto.spoon.CreateUserRequest;
 import ru.gb.dto.spoon.CreateUserResponse;
+import ru.gb.endpoints.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import java.util.stream.Stream;
@@ -49,7 +50,8 @@ public class AddToShoppingListTest {
 //                        "    \"lastName\": \"" + faker.name().lastName() + "\",\n" +
 //                        "    \"email\": \"" + faker.internet().emailAddress()+ "\"\n" +
 //                        "}")
-                .post("/users/connect")                                               //ожидаем создание юзера
+                .post(SpoonEndpoints.USER_CONNECT.getEndpoint())
+//                .post("/users/connect")                                               //ожидаем создание юзера
 //                .prettyPeek()                                                          //для отображения в ответе полей
                 .then()
                 .statusCode(200)                                                       //201 необязательно (можно просто 200)
@@ -75,13 +77,13 @@ public class AddToShoppingListTest {
                 .body("aisles", Matchers.hasSize(0));                                  //проверяем что в теле есть арей, и что у арея размер ноль (как в теле запроса)
     }
 
-    public static Stream<AddItemToShoppingListRequest> shoppingListRequests() {             //выносим параметры  {"1 kg cucumbers,Cucumber", "2 kg tomatos,Tomato"}) возвращаем не аргументы а нужный класс AddltemToShopingListRequest
-    return Stream.of(AddItemToShoppingListRequest.builder()                         //формируем нужные параметры
+    public static Stream<AddItemToShoppingListRequest> shoppingListRequests() {           //выносим параметры  {"1 kg cucumbers,Cucumber", "2 kg tomatos,Tomato"}) возвращаем не аргументы а нужный класс AddltemToShopingListRequest
+    return Stream.of(AddItemToShoppingListRequest.builder()                               //формируем нужные параметры
                   .item("1 kg cucumbers")
                   .aisle("Cucumber")
                   .parse(true)
             .build(),
-           AddItemToShoppingListRequest.builder()                                          //формируем нужные параметры
+           AddItemToShoppingListRequest.builder()                                         //формируем нужные параметры
                     .item("2 kg tomatos")
                     .aisle("Tomato")
                     .parse(true)
@@ -94,12 +96,12 @@ public class AddToShoppingListTest {
 //    void addToShoppingListTest(String item, String aisle) {                             //добавляем входные параметры из тела запроса - String item, String aisle
    void addToShoppingListTest(AddItemToShoppingListRequest addItemToShoppingListRequest) {
        given()
-                .log()
-                .all()
+//                .log()
+//                .all()
                 .spec(hashParam)                                                          //уже после десириализации достаточно написать .spec(hashParam)
                 .body(addItemToShoppingListRequest) //(AddItemToShoppingListRequest
 
-//                        "{\n" +                                                           //указываем тело запроса из постмана с добавлением параметров
+//                        "{\n" +                                                          //указываем тело запроса из постмана с добавлением параметров
 //                        "    \"item\": \"" + item + "\",\n" +
 //                        "    \"aisle\": \"" + aisle + "\",\n" +
 //                        "    \"parse\": true\n" +
