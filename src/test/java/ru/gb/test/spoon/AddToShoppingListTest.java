@@ -9,10 +9,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import ru.gb.dto.spoon.AddItemToShoppingListRequest;
 import ru.gb.dto.spoon.CreateUserRequest;
 import ru.gb.dto.spoon.CreateUserResponse;
 import ru.gb.extensions.SpoonApiTest;
+
+import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
 //подготовка данных для теста
@@ -70,17 +74,36 @@ public class AddToShoppingListTest {
                 .statusCode(200)                                                       //статус код 200 (если негативный 400)
                 .body("aisles", Matchers.hasSize(0));                                  //проверяем что в теле есть арей, и что у арея размер ноль (как в теле запроса)
     }
+
+    public static Stream<AddItemToShoppingListRequest> shoppingListRequests() {             //выносим параметры  {"1 kg cucumbers,Cucumber", "2 kg tomatos,Tomato"}) возвращаем не аргументы а нужный класс AddltemToShopingListRequest
+    return Stream.of(AddItemToShoppingListRequest.builder()                         //формируем нужные параметры
+                  .item("1 kg cucumbers")
+                  .aisle("Cucumber")
+                  .parse(true)
+            .build(),
+           AddItemToShoppingListRequest.builder()                                          //формируем нужные параметры
+                    .item("2 kg tomatos")
+                    .aisle("Tomato")
+                    .parse(true)
+                    .build());
+    }
 //пишем тест (сначала кладем в корзину, затем проверяем что там что-то есть)
     @ParameterizedTest                                                                    //параметризуем тест (для этого воспользуемся   @CsvSource
-    @CsvSource(value = {"1 kg cucumbers,Cucumber", "2 kg tomatos,Tomato"})                //добавляем значение параметров - String item, String aisle
-    void addToShoppingListTest(String item, String aisle) {                               //добавляем входные параметры из тела запроса - String item, String aisle
-        given()
+//@CsvSource(value = {"1 kg cucumbers,Cucumber", "2 kg tomatos,Tomato"})                  //добавляем значение параметров - String item, String aisle
+    @MethodSource("shoppingListRequests")
+//    void addToShoppingListTest(String item, String aisle) {                             //добавляем входные параметры из тела запроса - String item, String aisle
+   void addToShoppingListTest(AddItemToShoppingListRequest addItemToShoppingListRequest) {
+       given()
+                .log()
+                .all()
                 .spec(hashParam)                                                          //уже после десириализации достаточно написать .spec(hashParam)
-                .body("{\n" +                                                          //указываем тело запроса из постмана с добавлением параметров
-                        "    \"item\": \"" + item + "\",\n" +
-                        "    \"aisle\": \"" + aisle + "\",\n" +
-                        "    \"parse\": true\n" +
-                        "}")
+                .body(addItemToShoppingListRequest) //(AddItemToShoppingListRequest
+
+//                        "{\n" +                                                           //указываем тело запроса из постмана с добавлением параметров
+//                        "    \"item\": \"" + item + "\",\n" +
+//                        "    \"aisle\": \"" + aisle + "\",\n" +
+//                        "    \"parse\": true\n" +
+//                        "}")
                 .post("/mealplanner/{username}/shopping-list/items", createUserResponse.getUsername())  //указываем тело запроса из постмана
                 .then()
                 .statusCode(200);                                                      //тело запроса не проверяем (важно что бы корзина была не пустая
@@ -91,7 +114,7 @@ public class AddToShoppingListTest {
                 .then()
                 .statusCode(200)
                 .body("aisles", Matchers.hasSize(1))                                   //проверка, что размер равен 1 товар
-                .body("aisles.aisle", Matchers.hasItems(aisle))                        //проверка поля тела запроса: aisle
+                .body("aisles.aisle", Matchers.hasItems(addItemToShoppingListRequest.getAisle()))  //проверка поля тела запроса: aisle
                 .body("aisles.items", Matchers.hasSize(1))
                 .extract()                                                                //получаем id для дальнейшего удаления
                 .jsonPath()
