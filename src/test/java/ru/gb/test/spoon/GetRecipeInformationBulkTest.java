@@ -31,7 +31,7 @@ public class GetRecipeInformationBulkTest {
                 .queryParam("query", queryParameter)
                 .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
                 .get("/recipes/informationBulk")
-                .prettyPeek()
+//                .prettyPeek()
                 .then()
                 .statusCode(200)
                 .body("searchResults.results.sourceName", Matchers.everyItem(Matchers.containsStringIgnoringCase(queryParameter))); //проверяем что в ответе (после флага prettyPeek) идет name - Recipes. [0] - ищем первый результат Arrey содержит во всех ответах queryParameter"pizza" (Matchers.everyItem(Matchers.containsString(queryParameter))

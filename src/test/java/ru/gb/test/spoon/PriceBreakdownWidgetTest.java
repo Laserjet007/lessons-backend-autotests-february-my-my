@@ -22,7 +22,7 @@ public class PriceBreakdownWidgetTest {
         given()
                 .queryParam("query", queryParameter)
                 .post("/recipes/visualizePriceEstimator")
-                .prettyPeek()
+//                .prettyPeek()
                 .then()
                 .statusCode(200);
     }

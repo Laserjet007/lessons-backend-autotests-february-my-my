@@ -31,7 +31,7 @@ public class RecipeTasteWidgetTest {
                 .queryParam("query", queryParameter)
                 .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
                 .post("/recipes/visualizeTaste")
-                .prettyPeek()
+//                .prettyPeek()
                 .then()
                 .statusCode(200);
     }

@@ -37,7 +37,7 @@ public class SearchRecipesTest {
                    .queryParam("query", queryParameter)
                     .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
                     .get("/recipes/complexSearch")
-                    .prettyPeek()
+//                    .prettyPeek()
                     .then()
                     .statusCode(200);
     }

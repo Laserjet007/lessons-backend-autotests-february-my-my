@@ -32,7 +32,7 @@ public class AnalyzeRecipeSearchQueryTest {
                 .queryParam("query", queryParameter)
                 .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
                 .get("/recipes/queries/analyze")
-                .prettyPeek()
+//                .prettyPeek()
                 .then()
 //                .spec(responseSpecification)
                 .statusCode(200);

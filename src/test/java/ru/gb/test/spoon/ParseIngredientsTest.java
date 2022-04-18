@@ -29,7 +29,7 @@ public class ParseIngredientsTest {
         given()
                 .queryParam("query", queryParameter)
                 .post("/recipes/parseIngredients")
-                .prettyPeek()
+//                .prettyPeek()
                 .then()
                 .spec(responseSpecification)
                 .statusCode(400);

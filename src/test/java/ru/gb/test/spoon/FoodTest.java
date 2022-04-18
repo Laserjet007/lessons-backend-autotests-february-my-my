@@ -71,7 +71,7 @@ public class FoodTest {
 //              ))
                 .get("/food/search")
 //              .get(baseUrl + "/food/search?query="+ queryParameter +"&offset=0&number=10")     //так обычно никто не пишет потому что queryParameter может быть много
-                .prettyPeek()                                                                    //временно поставим логирование для просмотра, response что бы в дальнейшем с этим работать (находить в ответе нужный элемент для сравнения)
+//                .prettyPeek()                                                                    //временно поставим логирование для просмотра, response что бы в дальнейшем с этим работать (находить в ответе нужный элемент для сравнения)
                 .then()
                 .spec(responseSpecification)                                                     // проверка ответа
                 .statusCode(200)                                                              //проверка статус кода

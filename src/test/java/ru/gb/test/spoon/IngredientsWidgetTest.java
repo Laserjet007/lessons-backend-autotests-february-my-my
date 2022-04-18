@@ -21,7 +21,7 @@ public class IngredientsWidgetTest {
         given()
                 .queryParam("query", queryParameter)
                 .post("/recipes/visualizeIngredients")
-                .prettyPeek()
+//                .prettyPeek()
                 .then()
                 .statusCode(200);
     }

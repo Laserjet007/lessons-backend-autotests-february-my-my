@@ -27,7 +27,7 @@ public class ClassifyCuisineTest {
         given()
                 .queryParam("query", queryParameter)
                 .post("/recipes/cuisine")
-                .prettyPeek()
+//                .prettyPeek()
                 .then()
                 .spec(responseSpecification)
                 .statusCode(200);
