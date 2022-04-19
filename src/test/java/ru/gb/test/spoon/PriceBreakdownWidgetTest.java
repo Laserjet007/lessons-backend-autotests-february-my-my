@@ -3,6 +3,7 @@ package ru.gb.test.spoon;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.gb.endpoints.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import static io.restassured.RestAssured.given;
@@ -21,7 +22,7 @@ public class PriceBreakdownWidgetTest {
 //        String queryParameter = "en";
         given()
                 .queryParam("query", queryParameter)
-                .post("/recipes/visualizePriceEstimator")
+                .post(SpoonEndpoints.RECIPES_VIZUALIZE_PRICE_ESTIMATOR.getEndpoint())//("/recipes/visualizePriceEstimator")
 //                .prettyPeek()
                 .then()
                 .statusCode(200);

@@ -7,6 +7,7 @@ import io.restassured.specification.ResponseSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.gb.endpoints.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import static io.restassured.RestAssured.given;
@@ -36,7 +37,7 @@ public class SearchRecipesTest {
             given()
                    .queryParam("query", queryParameter)
                     .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
-                    .get("/recipes/complexSearch")
+                    .get(SpoonEndpoints.RECIPES_COMPLEX_SEARCH.getEndpoint()) //("/recipes/complexSearch")
 //                    .prettyPeek()
                     .then()
                     .statusCode(200);

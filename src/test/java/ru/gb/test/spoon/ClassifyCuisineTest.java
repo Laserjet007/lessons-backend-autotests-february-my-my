@@ -6,6 +6,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.gb.endpoints.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import static io.restassured.RestAssured.given;
@@ -26,7 +27,7 @@ public class ClassifyCuisineTest {
     public void ClassifyCuisine_Test(String queryParameter) {
         given()
                 .queryParam("query", queryParameter)
-                .post("/recipes/cuisine")
+                .post(SpoonEndpoints.RECIPES_CUISINE.getEndpoint())                           //("/recipes/cuisine")
 //                .prettyPeek()
                 .then()
                 .spec(responseSpecification)

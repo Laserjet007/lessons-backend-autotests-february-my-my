@@ -3,6 +3,7 @@ package ru.gb.test.spoon;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.gb.endpoints.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import static io.restassured.RestAssured.given;
@@ -20,7 +21,7 @@ public class IngredientsWidgetTest {
     public void IngredientsWidget_Test(String queryParameter) {
         given()
                 .queryParam("query", queryParameter)
-                .post("/recipes/visualizeIngredients")
+                .post(SpoonEndpoints.RECIPES_VIZUALIZE_INGREDIENTS.getEndpoint())//("/recipes/visualizeIngredients")
 //                .prettyPeek()
                 .then()
                 .statusCode(200);

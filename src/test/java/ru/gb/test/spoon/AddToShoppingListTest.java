@@ -71,7 +71,7 @@ public class AddToShoppingListTest {
         given()
                 .spec(hashParam)                                                         //уже после десириализации достаточно написать .spec(hashParam)
 //                .queryParam("hash", hash)                                              //используем квери параметры
-                .get("/mealplanner/{username}/shopping-list", createUserResponse.getUsername())      //забираем из постмана mealplanner/your-users-name77/shopping-list?hash=d59eb6a65c286eb6   .. для обозначения параметра в {username} дописываем userName
+                .get(SpoonEndpoints.MEALPLANNER_USERNAME_SHOPPING_LIST.getEndpoint(), createUserResponse.getUsername())      //забираем из постмана mealplanner/your-users-name77/shopping-list?hash=d59eb6a65c286eb6   .. для обозначения параметра в {username} дописываем userName
                 .then()                                                                   // добавляем проверки
                 .statusCode(200)                                                       //статус код 200 (если негативный 400)
                 .body("aisles", Matchers.hasSize(0));                                  //проверяем что в теле есть арей, и что у арея размер ноль (как в теле запроса)
@@ -106,13 +106,15 @@ public class AddToShoppingListTest {
 //                        "    \"aisle\": \"" + aisle + "\",\n" +
 //                        "    \"parse\": true\n" +
 //                        "}")
-                .post("/mealplanner/{username}/shopping-list/items", createUserResponse.getUsername())  //указываем тело запроса из постмана
-                .then()
-                .statusCode(200);                                                      //тело запроса не проверяем (важно что бы корзина была не пустая
+
+//             .post("/mealplanner/{username}/shopping-list/items", createUserResponse.getUsername())  //указываем тело запроса из постмана
+               .post(SpoonEndpoints.MEALPLANNER_USERNAME_SHOPPING_LIST_ITEMS.getEndpoint(), createUserResponse.getUsername())    //пример взятия инфы из spoonEndpoints
+               .then()
+               .statusCode(200);                                                      //тело запроса не проверяем (важно что бы корзина была не пустая
 
         id = given()                                                                     //добавляем проверку, что корзина не пуста
                 .spec(hashParam)
-                .get("/mealplanner/{username}/shopping-list", createUserResponse.getUsername())
+                .get(SpoonEndpoints.MEALPLANNER_USERNAME_SHOPPING_LIST.getEndpoint(), createUserResponse.getUsername())
                 .then()
                 .statusCode(200)
                 .body("aisles", Matchers.hasSize(1))                                   //проверка, что размер равен 1 товар
@@ -127,7 +129,7 @@ public class AddToShoppingListTest {
     void tearDown() {
         given()
                 .spec(hashParam)                                                          //уже после десириализации достаточно написать .spec(hashParam)
-                .delete("/mealplanner/{username}/shopping-list/items/{id}", createUserResponse.getUsername(), id)
+                .delete(SpoonEndpoints.MEALPLANNER_USERNAME_SHOPPING_LIST_ID.getEndpoint(), createUserResponse.getUsername(), id)
                 .then()
                 .statusCode(200);
     }

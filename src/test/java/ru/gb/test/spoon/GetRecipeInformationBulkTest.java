@@ -7,6 +7,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.gb.endpoints.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import static io.restassured.RestAssured.given;
@@ -30,7 +31,7 @@ public class GetRecipeInformationBulkTest {
         given()
                 .queryParam("query", queryParameter)
                 .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
-                .get("/recipes/informationBulk")
+                .get(SpoonEndpoints.RECIPES_INFORMATION_BULK.getEndpoint())                    // ("/recipes/informationBulk")
 //                .prettyPeek()
                 .then()
                 .statusCode(200)

@@ -6,6 +6,7 @@ import io.restassured.specification.ResponseSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.gb.endpoints.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import static io.restassured.RestAssured.given;
@@ -30,7 +31,7 @@ public class RecipeTasteWidgetTest {
         given()
                 .queryParam("query", queryParameter)
                 .spec(requestSpecification)                                                    //добавляем спецификацию вместо параметров
-                .post("/recipes/visualizeTaste")
+                .post(SpoonEndpoints.RECIPES_VIZUALIZE_TESTE.getEndpoint())                    //("/recipes/visualizeTaste")
 //                .prettyPeek()
                 .then()
                 .statusCode(200);

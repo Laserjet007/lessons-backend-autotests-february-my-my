@@ -7,6 +7,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.gb.endpoints.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import static io.restassured.RestAssured.given;
@@ -28,7 +29,7 @@ public class ParseIngredientsTest {
     public void ParseIngredients_Test(String queryParameter) {
         given()
                 .queryParam("query", queryParameter)
-                .post("/recipes/parseIngredients")
+                .post(SpoonEndpoints.RECIPES_PARSE_INGREDIENTS.getEndpoint())                         //("/recipes/parseIngredients")
 //                .prettyPeek()
                 .then()
                 .spec(responseSpecification)
