@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data// создаем через новый POJO jackson (возможно долго генерить будет)
+@Data                                                                 // создаем через новый POJO jackson (возможно долго генерить будет)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

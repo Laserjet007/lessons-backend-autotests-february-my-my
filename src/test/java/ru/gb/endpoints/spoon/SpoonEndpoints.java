@@ -1,8 +1,8 @@
-package ru.gb.endpoints;
+package ru.gb.endpoints.spoon;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
+//создаем ендпоинты для уменьшения кода
 @AllArgsConstructor
 public enum SpoonEndpoints {
     FOOD_SEARCH("/food/search"),

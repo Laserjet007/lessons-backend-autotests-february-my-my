@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import ru.gb.dto.spoon.AddItemToShoppingListRequest;
 import ru.gb.dto.spoon.CreateUserRequest;
 import ru.gb.dto.spoon.CreateUserResponse;
-import ru.gb.endpoints.SpoonEndpoints;
+import ru.gb.endpoints.spoon.SpoonEndpoints;
 import ru.gb.extensions.SpoonApiTest;
 
 import java.util.stream.Stream;
